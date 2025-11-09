@@ -8,7 +8,7 @@ def generate_pages_recursive(dir_path_content, template_path, dest_dir_path, bas
         file_path = Path(os.path.join(dir_path_content, file_path))
         if os.path.isdir(file_path):
             nested_dest_dir_path = Path(os.path.join(dest_dir_path, file_path.name))
-            generate_pages_recursive(file_path, template_path, nested_dest_dir_path)
+            generate_pages_recursive(file_path, template_path, nested_dest_dir_path, basepath)
         if file_path.suffix == ".md":
             from_file = open(file_path, "r")
             markdown_content = from_file.read()
