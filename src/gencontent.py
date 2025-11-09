@@ -2,7 +2,7 @@ from markdown_blocks import markdown_to_html_node
 import os
 from pathlib import Path
 
-def generate_pages_recursive(dir_path_content, template_path, dest_dir_path):
+def generate_pages_recursive(dir_path_content, template_path, dest_dir_path, basepath):
     dir_path_ls = os.listdir(dir_path_content)
     for file_path in dir_path_ls:
         file_path = Path(os.path.join(dir_path_content, file_path))
@@ -24,6 +24,8 @@ def generate_pages_recursive(dir_path_content, template_path, dest_dir_path):
             title = extract_title(markdown_content)
             template = template.replace("{{ Title }}", title)
             template = template.replace("{{ Content }}", html)
+            template = template.replace('href="/', 'href="' + basepath)
+            template = template.replace('src="/', 'src="' + basepath)
 
             dest_dir_path = Path(os.path.join(dest_dir_path, file_path.name))
             dest_dir_path = dest_dir_path.with_suffix(".html")
